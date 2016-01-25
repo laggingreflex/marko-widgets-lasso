@@ -21,3 +21,25 @@ The page still loads and number-spinner template still loads, but it gives this 
 And on clicking it gives this error
 
     Uncaught Error: Widget not found: w0
+
+---
+
+
+In the original version, during load time, a particular instance in call stack shows this:
+
+![](http://i.imgur.com/x44bFFe.png)
+
+    var type = el.getAttribute('data-widget');
+    // type = "/src/components/number-spinner"
+
+However the [same thing in this forked version shows](http://i.imgur.com/GF5eZom.png)
+
+    var type = el.getAttribute('data-widget');
+    // type = "/$/my-components/components/number-spinner"
+
+which results in the error. There is no `/$/my-components` in the `build\static` dir, however there is `/node_modules/my-components`
+
+![](http://i.imgur.com/DoaPJXp.png)
+
+is `/$/..` supposed to resolve to `/node_modules/`? Do I need do to something to make that happen?
+
